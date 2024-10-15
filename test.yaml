@@ -34,6 +34,7 @@ spec:
           - name: SNAPSHOT
             value: $(params.SNAPSHOT)
           script: |
+            sleep 6000
             dnf -y install jq
             echo -e "Example test task for the Snapshot:\n ${SNAPSHOT}"
             # Run custom tests for the given Snapshot here
