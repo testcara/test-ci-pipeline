@@ -50,23 +50,7 @@ spec:
     taskSpec:
       steps:
       - image: registry.redhat.io/openshift4/ose-cli:latest
-        env:
-        - name: OPTIONS_FILE
-          valueFrom:
-            secretKeyRef:
-              name: clc-options-yaml-file-2
-              key: CLC_OPTIONS_YAML
-        - name: OPTIONS_ENCODE_FILE
-          valueFrom:
-            secretKeyRef:
-              name: clc-options-yaml-file-1
-              key: CLC_OPTIONS_YAML_1
         script: |
           #!/usr/bin/env sh
           set -eux
-          echo "--- raw yaml file ----"
-          echo ${OPTIONS_FILE} > options.yaml
-          cat options.yaml
-          echo "--- encoded yaml file ------"
-          echo ${OPTIONS_ENCODE_FILE} | base64 -d > options.yaml
-          cat options.yaml
+          sleep 60
